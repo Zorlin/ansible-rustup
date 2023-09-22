@@ -15,7 +15,10 @@
     rustup_shell_rc_settings_file: "{{ item.name }}"
   when:
     - rustup_user_shell|regex_replace('^.*/','') == item.shell
-    - rustup_shell_rc_settings_file is not defined
+    # TODO(bug)
+    # We disable this check so that rustup_shell_rc_settings_file is always updated
+    # however that loses us the ability to manually set rustup_shell_rc_settings_file ourselves.
+    #- rustup_shell_rc_settings_file is not defined
   with_items:
     - name: "{{ rustup_user_home }}/.bashrc"
       shell: "bash"
